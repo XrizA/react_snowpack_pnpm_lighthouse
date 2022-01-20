@@ -1,0 +1,24 @@
+{
+  "scripts": {
+    "start": "snowpack dev",
+    "build": "snowpack build",
+    "test": "web-test-runner \"src/**/*.test.{js,jsx,ts}\"",
+    "test:wat": "web-test-runner \"src/**/*.test.{js,jsx,ts}\" --watch",
+    "test:cov": "web-test-runner \"src/**/*.test.{js,jsx,ts}\" --coverage"
+  },
+  "dependencies": {
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
+  },
+  "devDependencies": {
+    "@esm-bundle/chai": "^4.3.4-fix.0",
+    "@snowpack/plugin-dotenv": "^2.1.0",
+    "@snowpack/plugin-react-refresh": "^2.5.0",
+    "@snowpack/web-test-runner-plugin": "^0.2.2",
+    "@testing-library/react": "^11.2.6",
+    "@web/test-runner": "^0.13.3",
+    "object-assign": "^4.1.1",
+    "scheduler": "^0.20.2",
+    "snowpack": "^3.3.7"
+  }
+}

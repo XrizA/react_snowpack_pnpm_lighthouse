@@ -1,0 +1,36 @@
+name: Lighthouse-ci
+on: [push]
+jobs:
+  lhci:
+    name: Lighthouse - Node ${{ matrix.node_version }} - ${{ matrix.architecture }} on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ ubuntu-latest ]
+        node_version: [ 12, 14, 16 ]
+        architecture: [ x64 ]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+      - name: Pnpm setup
+        uses: pnpm/action-setup@v2.0.1
+        with:
+          version: 6.27.0
+      - name: Setup node
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node_version }}
+          architecture: ${{ matrix.architecture }}
+          cache: 'pnpm'
+      - name: pnpm install, build
+        run: |
+          pnpm install
+          pnpm run build
+      - name: run lighthouse-ci
+        run: |
+          pnpm install -g @lhci/cli@0.8.x
+          lhci autorun --upload.target=temporary-public-storage || echo "LHCI failed!"
+        env:
+          LHCI_GITHUB_APP_TOKEN: ${{secrets.LHCI_GITHUB_APP_TOKEN}}
