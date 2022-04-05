@@ -11,15 +11,15 @@ jobs:
         architecture: [ x64 ]
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           ref: ${{ github.event.pull_request.head.sha }}
       - name: Pnpm setup
-        uses: pnpm/action-setup@v2.0.1
+        uses: pnpm/action-setup@v2.2.1
         with:
-          version: 6.27.0
+          version: 6.32.4
       - name: Setup node
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node_version }}
           architecture: ${{ matrix.architecture }}
@@ -30,7 +30,7 @@ jobs:
           pnpm run build
       - name: run lighthouse-ci
         run: |
-          pnpm install -g @lhci/cli@0.8.x
+          pnpm install -g @lhci/cli@0.9.x
           lhci autorun --upload.target=temporary-public-storage || echo "LHCI failed!"
         env:
           LHCI_GITHUB_APP_TOKEN: ${{secrets.LHCI_GITHUB_APP_TOKEN}}

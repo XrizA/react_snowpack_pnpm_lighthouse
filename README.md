@@ -2,6 +2,13 @@
 
 > ✨ Bootstrapped with Create Snowpack App (CSA).
 
+## First
+```
+pnpm install
+pnpm run build
+pnpm start
+```
+
 ## Available Scripts
 
 ```
